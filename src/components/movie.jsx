@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Movie = ({ movie }) => {
   return (
     <MovieBox>
-      <h2>{movie?.name}</h2>
+      <h2>{movie?.title}</h2>
       <p>{movie?.content}</p>
     </MovieBox>
   );

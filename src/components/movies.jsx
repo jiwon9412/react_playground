@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Movie from "./movie";
 
-const Movies = ({ movies }) => {
+const Movies = ({ data }) => {
   return (
     <MoviesBox>
-      {movies.map((movie) => (
+      {data.map((movie) => (
         <Movie movie={movie} key={movie.id} />
       ))}
     </MoviesBox>
