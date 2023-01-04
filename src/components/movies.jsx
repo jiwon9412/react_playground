@@ -23,4 +23,5 @@ const MoviesBox = styled.div`
   padding: 3em 0;
   border-radius: 2em;
   background-color: #fff;
+  margin-bottom: 2em;
 `;

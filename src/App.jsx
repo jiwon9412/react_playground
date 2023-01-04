@@ -2,8 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import AddMovie from "./components/addMovie";
 import ButtonBox from "./components/buttonBox";
+import DownCount from "./components/downCount";
 import GlobalStyle from "./components/globalStyle";
 import Movies from "./components/movies";
+import UpCount from "./components/upCount";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
@@ -65,6 +67,8 @@ const App = () => {
         <ButtonBox clickHandler={clickHandler} />
         {isLoading && <p>Loading ...</p>}
         {!isLoading && <Movies data={movies} />}
+        <UpCount />
+        <DownCount />
       </MyApp>
     </>
   );
