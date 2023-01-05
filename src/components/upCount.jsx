@@ -1,7 +1,10 @@
+import useCounter from "../hooks/useCounter";
 import Card from "./card";
 
 const UpCount = () => {
-  return <Card>0</Card>;
+  const count = useCounter();
+
+  return <Card>{count}</Card>;
 };
 
 export default UpCount;

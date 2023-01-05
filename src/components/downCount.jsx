@@ -1,8 +1,10 @@
 import React from "react";
+import useCounter from "../hooks/useCounter";
 import Card from "./card";
 
 const DownCount = () => {
-  return <Card>0</Card>;
+  const count = useCounter(false);
+  return <Card>{count}</Card>;
 };
 
 export default DownCount;
