@@ -64,15 +64,21 @@ const Join = () => {
   return (
     <JoinBox>
       <p>Your ID</p>
-      <input type='text' onChange={handleIdChange} onBlur={handleIdInputBlur} />
+      <JoinInput
+        type='text'
+        onChange={handleIdChange}
+        onBlur={handleIdInputBlur}
+        validation={enteredIdIsValid || !enteredIdIsTouched}
+      />
       {!enteredIdIsValid && enteredIdIsTouched && (
         <WarningText>ID는 6자리 이상만 가능합니다.</WarningText>
       )}
       <p>Password</p>
-      <input
+      <JoinInput
         type='password'
         onChange={handlePasswordChange}
         onBlur={handlePasswordInputBlur}
+        validation={enteredPasswordIsValid || !enteredPasswordIsTouched}
       />
       {!enteredPasswordIsValid && enteredPasswordIsTouched && (
         <WarningText>
@@ -94,24 +100,26 @@ const JoinBox = styled.div`
 
   width: 40%;
   min-width: 460px;
-  padding: 10px 20px;
+  padding: 20px;
   background-color: #fff;
   border-radius: 10px;
 
   p {
     font-weight: 700;
   }
+`;
 
-  input {
-    width: 300px;
-    height: 25px;
-    border-radius: 5px;
-    outline: none;
+const JoinInput = styled.input`
+  width: 300px;
+  height: 35px;
+  border-radius: 5px;
+  outline: none;
+  background-color: ${(props) => (props.validation ? "#fff" : "#FFCBCB")};
+  border: 2px solid ${(props) => (props.validation ? "#000" : "#660000")};
 
-    &:focus {
-      background-color: #e3f6fe;
-      border: 2px solid #2e596c;
-    }
+  &:focus {
+    background-color: #e3f6fe;
+    border: 2px solid #2e596c;
   }
 `;
 
