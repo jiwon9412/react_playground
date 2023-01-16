@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import useInput from "../hooks/useInput";
 
 const Join = () => {
-  const [enteredId, setEnteredId] = useState("");
-  const [enteredIdIsTouched, setEnteredIdIsTouched] = useState(false);
-  const [enteredPassword, setEnteredPassword] = useState("");
-  const [enteredPasswordIsTouched, setEnteredPasswordIsTouched] =
-    useState(false);
+  const checkEnteredId = (id) => {
+    return id.length >= 6;
+  };
 
-  const enteredIdIsValid = enteredId.length >= 6; //Id 8자리 이상인지 유효성검사
-  /**
-   *
-   * @param {*} password //입력한 password
-   * @returns boolean : password 유효성검사결과
-   */
-  const checkValidationPassword = (password) => {
+  const {
+    value: enteredId,
+    hasError: enteredIdHasError,
+    handleInputChange: handleIdInputChange,
+    handleInputBlur: handleIdInputBlur,
+    resetValue: resetId,
+  } = useInput(checkEnteredId);
+
+  const checkEnteredPassword = (password) => {
     let checkLength = false;
     let checkIncludeSpecial = false;
     if (password.length >= 8) {
@@ -29,64 +30,57 @@ const Join = () => {
     return checkLength && checkIncludeSpecial;
   };
 
-  const enteredPasswordIsValid = checkValidationPassword(enteredPassword); //Password 유효성검사 (8자이상, 특수문자 포함)
-
-  const handleIdChange = (e) => {
-    setEnteredId(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setEnteredPassword(e.target.value);
-  };
+  const {
+    value: enteredPassword,
+    hasError: enteredPasswordHasError,
+    handleInputChange: handlePasswordInputChange,
+    handleInputBlur: handlePasswordInputBlur,
+    resetValue: resetPassword,
+  } = useInput(checkEnteredPassword);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!enteredIdIsValid) {
+    if (enteredIdHasError) {
       alert("ID를 확인하세요.");
       return;
     }
-    if (!enteredPasswordIsValid) {
+    if (enteredPasswordHasError) {
       alert("Password를 확인하세요.");
       return;
     }
-
+    resetId();
+    resetPassword();
     alert(`ID : ${enteredId} \n Password : ${enteredPassword}`);
-  };
-
-  const handleIdInputBlur = () => {
-    setEnteredIdIsTouched(true);
-  };
-
-  const handlePasswordInputBlur = () => {
-    setEnteredPasswordIsTouched(true);
   };
 
   return (
     <JoinBox>
-      <p>Your ID</p>
+      <p>아이디</p>
       <JoinInput
         type='text'
-        onChange={handleIdChange}
+        onChange={handleIdInputChange}
         onBlur={handleIdInputBlur}
-        validation={enteredIdIsValid || !enteredIdIsTouched}
+        validation={!enteredIdHasError}
+        value={enteredId || ""}
       />
-      {!enteredIdIsValid && enteredIdIsTouched && (
-        <WarningText>ID는 6자리 이상만 가능합니다.</WarningText>
+      {enteredIdHasError && (
+        <WarningText>아이디는 6자리 이상만 가능합니다.</WarningText>
       )}
-      <p>Password</p>
+      <p>비밀번호</p>
       <JoinInput
         type='password'
-        onChange={handlePasswordChange}
+        onChange={handlePasswordInputChange}
         onBlur={handlePasswordInputBlur}
-        validation={enteredPasswordIsValid || !enteredPasswordIsTouched}
+        validation={!enteredPasswordHasError}
+        value={enteredPassword || ""}
       />
-      {!enteredPasswordIsValid && enteredPasswordIsTouched && (
+      {enteredPasswordHasError && (
         <WarningText>
-          Password는 8자이상이고 특수문자를 포함하여야합니다.
+          비밀번호는 8자이상이고 특수문자를 포함하여야합니다.
         </WarningText>
       )}
       <BottomBox>
-        <button onClick={handleSubmit}>Submit</button>
+        <button onClick={handleSubmit}>회원가입</button>
       </BottomBox>
     </JoinBox>
   );
