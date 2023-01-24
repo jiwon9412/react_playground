@@ -1,15 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import App_movie from "./App_movie";
 import reportWebVitals from "./reportWebVitals";
-import App_Join from "./App_Join";
+import App_auth from "./App_auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App_Join />
+    <App_auth />
   </React.StrictMode>
 );
 
