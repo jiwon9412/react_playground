@@ -1,16 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Header = () => {
   return (
-    <div>
+    <NavHeader>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="login">Login</Link>
-        <Link to="/">Logout</Link>
+        <StyleLink to="/">Home</StyleLink>
+        <StyleLink to="login">Login</StyleLink>
+        <StyleLink to="/">Logout</StyleLink>
       </nav>
-    </div>
+    </NavHeader>
   );
 };
 
 export default Header;
+
+const NavHeader = styled.section`
+  height: 100px;
+  padding-top: 10px;
+  padding-right: 50px;
+
+  nav {
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
+
+const StyleLink = styled(Link)`
+  margin-right: 10px;
+  text-decoration: none;
+  color: #000;
+  font-size: 1.3em;
+
+  &:hover {
+    font-weight: 600;
+    color: #53005e;
+  }
+`;
