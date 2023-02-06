@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import useHttp from '../../hooks/useHttp';
 
 const Container = styled.div`
   display: flex;
@@ -56,6 +57,8 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const { isLoading, error, sendRequest: fetchLogin } = useHttp();
+
   const idChangeHandler = (e) => {
     setId(e.target.value);
   };
@@ -64,11 +67,28 @@ const Login = () => {
     setPassword(e.target.value);
   };
 
+  const callbackLogin = (data) => {
+    console.log(data);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(id);
-    console.log(password);
+    // console.log(id);
+    // console.log(password);
+    const loginRequestConfig = {
+      url: process.env.REACT_APP_LOGIN_URL,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: {
+        email: id,
+        password: password,
+        returnSecureToken: true,
+      },
+    };
+    fetchLogin(loginRequestConfig, callbackLogin);
   };
 
   const goSignPage = () => {

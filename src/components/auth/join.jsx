@@ -4,7 +4,7 @@ import useHttp from '../../hooks/useHttp';
 import useInput from '../../hooks/useInput';
 
 const Join = () => {
-  const loginUrl = process.env.REACT_APP_AUTH_URL;
+  const joinUrl = process.env.REACT_APP_AUTH_URL;
 
   const checkEnteredId = (id) => {
     const emailRegExp = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/g;
@@ -43,24 +43,12 @@ const Join = () => {
     resetValue: resetPassword,
   } = useInput(checkEnteredPassword);
 
-  const loginRequestConfig = {
-    url: loginUrl,
-    method: 'POST',
-    header: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      email: enteredId,
-      password: enteredPassword,
-      returnSecureToken: true,
-    },
-  };
-
   const { isLoading, error, sendRequest: fetchJoin } = useHttp();
 
   const callbackLogin = () => {
     resetId();
     resetPassword();
+    console.log(error);
   };
 
   const handleSubmit = (e) => {
@@ -73,7 +61,21 @@ const Join = () => {
       alert('Password를 확인하세요.');
       return;
     }
-    fetchJoin(loginRequestConfig, callbackLogin);
+
+    const joinRequestConfig = {
+      url: joinUrl,
+      method: 'POST',
+      header: {
+        'Content-Type': 'application/json',
+      },
+      body: {
+        email: enteredId,
+        password: enteredPassword,
+        returnSecureToken: true,
+      },
+    };
+
+    fetchJoin(joinRequestConfig, callbackLogin);
   };
 
   return (
