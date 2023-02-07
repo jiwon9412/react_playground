@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useHttp from '../../hooks/useHttp';
+import AuthContext from '../../store/auth-context';
 
 const Container = styled.div`
   display: flex;
@@ -55,6 +56,8 @@ const Login = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
 
+  const authContext = useContext(AuthContext);
+
   const navigate = useNavigate();
 
   const { isLoading, error, sendRequest: fetchLogin } = useHttp();
@@ -68,7 +71,8 @@ const Login = () => {
   };
 
   const callbackLogin = (data) => {
-    console.log(data);
+    //console.log(data);
+    authContext.login(data.idToken);
   };
 
   const handleSubmit = (e) => {

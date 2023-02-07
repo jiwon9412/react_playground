@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import AuthContext from '../../store/auth-context';
 
 const Header = () => {
+  const authContext = useContext(AuthContext);
+  const isLoggedIn = authContext.isLoggedIn;
+
   return (
     <NavHeader>
       <nav>
         <StyleLink to="/">Home</StyleLink>
-        <StyleLink to="login">Login</StyleLink>
-        <StyleLink to="/">Logout</StyleLink>
+        {isLoggedIn || <StyleLink to="login">Login</StyleLink>}
+        {isLoggedIn && (
+          <StyleLink
+            to="/"
+            onClick={() => {
+              authContext.logout();
+              console.log(authContext.token);
+            }}
+          >
+            Logout
+          </StyleLink>
+        )}
       </nav>
     </NavHeader>
   );
