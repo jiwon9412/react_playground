@@ -73,6 +73,9 @@ const Login = () => {
   const callbackLogin = (data) => {
     //console.log(data);
     authContext.login(data.idToken);
+    setId('');
+    setPassword('');
+    navigate('/');
   };
 
   const handleSubmit = (e) => {

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import AuthContext from '../../store/auth-context';
 
@@ -7,19 +7,18 @@ const Header = () => {
   const authContext = useContext(AuthContext);
   const isLoggedIn = authContext.isLoggedIn;
 
+  const logoutHandler = () => {
+    authContext.logout();
+    console.log(authContext.token);
+  };
+
   return (
     <NavHeader>
       <nav>
         <StyleLink to="/">Home</StyleLink>
         {isLoggedIn || <StyleLink to="login">Login</StyleLink>}
         {isLoggedIn && (
-          <StyleLink
-            to="/"
-            onClick={() => {
-              authContext.logout();
-              console.log(authContext.token);
-            }}
-          >
+          <StyleLink to="/login" onClick={logoutHandler}>
             Logout
           </StyleLink>
         )}
