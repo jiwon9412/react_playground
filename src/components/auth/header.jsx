@@ -22,6 +22,11 @@ const Header = () => {
             Logout
           </StyleLink>
         )}
+        {isLoggedIn && (
+          <StyleLink to="/info" my={true}>
+            My
+          </StyleLink>
+        )}
       </nav>
     </NavHeader>
   );
@@ -43,7 +48,7 @@ const NavHeader = styled.section`
 const StyleLink = styled(Link)`
   margin-right: 10px;
   text-decoration: none;
-  color: #000;
+  color: ${(props) => (props.my ? '#052aff' : '#000')};
   font-size: 1.3em;
 
   &:hover {

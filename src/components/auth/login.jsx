@@ -84,7 +84,7 @@ const Login = () => {
     // console.log(id);
     // console.log(password);
     const loginRequestConfig = {
-      url: process.env.REACT_APP_LOGIN_URL,
+      url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_AUTH_KEY}`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

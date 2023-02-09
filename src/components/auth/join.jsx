@@ -4,7 +4,7 @@ import useHttp from '../../hooks/useHttp';
 import useInput from '../../hooks/useInput';
 
 const Join = () => {
-  const joinUrl = process.env.REACT_APP_AUTH_URL;
+  const joinUrl = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_AUTH_KEY}`;
 
   const checkEnteredId = (id) => {
     const emailRegExp = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/g;
